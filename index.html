@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>React Teste</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style type="text/tailwindcss">
+    @theme{
+        --primary: #f9f506;
+        --background-light: #f8f8f5;
+        --background-dark: #23220f;
+        --font-text: 'Spline Sans', 'Noto Sans', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+<script src="https://unpkg.com/@tailwindcss/browser@4";></script>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel (OBRIGATÓRIO para JSX no browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const textVariants ={
+        text:"text-base",
+        timer:"text-6xl",
+        blast: "text-xs"
+    }
+    const ButtonVariant ={
+        primary: "bg-red-600",
+        secundary: "bg-green-700",
+        third:"bg-blue-600"
+        
+    }
+    function Text({as='p' , children , variant,className, ...props}){
+        return React.createElement(
+            as,
+            {
+                className: `${textVariants[variant]} ${className} ${className ? className: ''}`,...props, 
+            },
+            children
+        )
+    }
+
+    function Buttons({variant="primary", children,className,...props}){
+        return(
+            <Text as="button" className={`text-white items-center justify-items-center text-center text-2xl  rounded-full px-8 py-2  flex flex-col ${ButtonVariant[variant]} ${className} ${className ? className : ''}`}{...props}>{children}</Text>
+        )
+    }
+
+    function App(){
+        return(
+            <main>
+                
+                </main>
+            
+        )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+      <App/>
+    );
+  </script>
+
+</body>
+</html>
