@@ -15,7 +15,7 @@
     }
   </style>
 </head>
-<body>
+<body class="bg-black">
 
   <div id="root"></div>
 <script src="https://unpkg.com/@tailwindcss/browser@4";></script>
@@ -30,7 +30,7 @@
   <script type="text/babel">
     const textVariants ={
         text:"text-base",
-        timer:"text-6xl",
+        timer:"text-6xl font-semibold",
         blast: "text-xs"
     }
     const ButtonVariant ={
@@ -54,11 +54,37 @@
             <Text as="button" className={`text-white items-center justify-items-center text-center text-2xl  rounded-full px-8 py-2  flex flex-col ${ButtonVariant[variant]} ${className} ${className ? className : ''}`}{...props}>{children}</Text>
         )
     }
-
+    function BarraDeNavegação({className,children,...props}){
+      return(
+          <Text as="div" variant="blast" className={` rounded-full flex flex-row items-center  py-1 justify-center bg-(--background-light)  text-[13px]  ${className}`}{...props}>{children}</Text> 
+        )
+    }
+     function Card({variant,className,children,...props}){
+            return (
+                <div className={` bg-white rounded-3xl flex-col items-center justify-between py-2 text-center ${className ? className : ''}`}>{children}</div>
+            )
+        }
     function App(){
         return(
-            <main>
-                
+            <main className="px-15 py-15 m-5">
+              <Card>
+                <Text>Pomodoro</Text>
+                <BarraDeNavegação className={`gap-8 m-5 `}>
+                <Text as="button" className={`hover:cursor-pointer  focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md  `}>focus</Text>
+                <Text as="button" className={`hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md  `}>short</Text>
+                <Text as="button" className={`hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md `}>long</Text>
+                </BarraDeNavegação>
+                <Text  variant="timer" className={`m-6 px-7`}>25:00</Text>
+                <div className="flex flex-row justify-between px-8">
+                  <Buttons>-</Buttons>
+                  <Buttons variant="secundary">+</Buttons>
+                  </div>
+                <div className="m-5 gap-1 flex flex-col">
+                  <Buttons variant="third" className={`font-semibold`}>Start timer</Buttons>
+                  <Buttons className={`bg-blue-100  `}>Reset</Buttons>
+                  
+                  </div>
+                </Card>
                 </main>
             
         )
