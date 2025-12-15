@@ -3,98 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <title>React Teste</title>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style type="text/tailwindcss">
-    @theme{
-        --primary: #f9f506;
-        --background-light: #f8f8f5;
-        --background-dark: #23220f;
-        --font-text: 'Spline Sans', 'Noto Sans', sans-serif;
+    @theme {
+      --primary: #f9f506;
+      --background-light: #f8f8f5;
+      --background-dark: #23220f;
+      --font-text: 'Spline Sans', 'Noto Sans', sans-serif;
     }
   </style>
 </head>
-<body class="bg-black">
+
+<body class="bg-(--background-light)">
 
   <div id="root"></div>
-<script src="https://unpkg.com/@tailwindcss/browser@4";></script>
+
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
   <!-- React -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
-  <!-- Babel (OBRIGATÓRIO para JSX no browser) -->
+  <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    const textVariants ={
-        text:"text-base",
-        timer:"text-6xl font-semibold",
-        blast: "text-xs"
-    }
-    const ButtonVariant ={
-        primary: "bg-red-600",
-        secundary: "bg-green-700",
-        third:"bg-blue-600"
-        
-    }
-    function Text({as='p' , children , variant,className, ...props}){
-        return React.createElement(
-            as,
-            {
-                className: `${textVariants[variant]} ${className} ${className ? className: ''}`,...props, 
-            },
-            children
-        )
+    const textVariants = {
+      text: "text-base",
+      timer: "text-6xl font-bold",
+      blast: "text-xs",
     }
 
-    function Buttons({variant="primary", children,className,...props}){
-        return(
-            <Text as="button" className={`text-white items-center justify-items-center text-center text-2xl  rounded-full px-8 py-2  flex flex-col ${ButtonVariant[variant]} ${className} ${className ? className : ''}`}{...props}>{children}</Text>
-        )
-    }
-    function BarraDeNavegação({className,children,...props}){
-      return(
-          <Text as="div" variant="blast" className={` rounded-full flex flex-row items-center  py-1 justify-center bg-(--background-light)  text-[13px]  ${className}`}{...props}>{children}</Text> 
-        )
-    }
-     function Card({variant,className,children,...props}){
-            return (
-                <div className={` bg-white rounded-3xl flex-col items-center justify-between py-2 text-center ${className ? className : ''}`}>{children}</div>
-            )
-        }
-    function App(){
-        return(
-            <main className="px-15 py-15 m-5">
-              <Card>
-                <Text>Pomodoro</Text>
-                <BarraDeNavegação className={`gap-8 m-5 `}>
-                <Text as="button" className={`hover:cursor-pointer  focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md  `}>focus</Text>
-                <Text as="button" className={`hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md  `}>short</Text>
-                <Text as="button" className={`hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md `}>long</Text>
-                </BarraDeNavegação>
-                <Text  variant="timer" className={`m-6 px-7`}>25:00</Text>
-                <div className="flex flex-row justify-between px-8">
-                  <Buttons>-</Buttons>
-                  <Buttons variant="secundary">+</Buttons>
-                  </div>
-                <div className="m-5 gap-1 flex flex-col">
-                  <Buttons variant="third" className={`font-semibold`}>Start timer</Buttons>
-                  <Buttons className={`bg-blue-100  `}>Reset</Buttons>
-                  
-                  </div>
-                </Card>
-                </main>
-            
-        )
+    const ButtonVariant = {
+      primary: "bg-red-500",
+      secundary: "bg-green-500",
+      third: "bg-blue-600",
+      forth: "bg-blue-100",
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(
-      <App/>
-    );
+    function Text({ as = "p", children, variant, className, ...props }) {
+      return React.createElement(
+        as,
+        {
+          className: `${textVariants[variant]} ${className ?? ""}`,
+          ...props,
+        },
+        children
+      )
+    }
+
+    function Buttons({ variant, children, className, ...props }) {
+      return (
+        <Text
+          as="button"
+          className={`items-center justify-items-center text-center text-2xl rounded-full px-6 py-3 flex flex-col ${ButtonVariant[variant]} ${className ?? ""}`}
+          {...props}
+        >
+          {children}
+        </Text>
+      )
+    }
+
+    function BarraDeNavegação({ className, children, ...props }) {
+      return (
+        <Text
+          as="div"
+          variant="blast"
+          className={`rounded-full flex flex-row items-center py-1 justify-center bg-(--background-light) sm:text-[15px] shadow ${className ?? ""}`}
+          {...props}
+        >
+          {children}
+        </Text>
+      )
+    }
+
+    function Card({ className, children }) {
+      return (
+        <div
+          className={`bg-white rounded-3xl flex-col items-center justify-between py-2 text-center ${className ?? ""}`}
+        >
+          {children}
+        </div>
+      )
+    }
+
+    function App() {
+      return (
+        <main className="min-h-screen flex justify-center items-center px-3 sm:px-96 sm:m-45">
+          <Card className="w-full max-w-[95%] sm:w-96 sm:max-w-none sm:py-10 shadow-xl shadow-(--primary)">
+            <Text className="font-semibold">Pomodoro</Text>
+
+            <BarraDeNavegação className="gap-10 sm:gap-20 m-5">
+              <Text as="button" className="hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md">
+                focus
+              </Text>
+              <Text as="button" className="hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md">
+                short
+              </Text>
+              <Text as="button" className="hover:cursor-pointer focus:bg-white rounded-full px-3 py-1 focus:font-bold focus:shadow-md">
+                long
+              </Text>
+            </BarraDeNavegação>
+
+            <Text variant="timer" className="m-6 px-7">
+              25:00
+            </Text>
+
+            <div className="flex flex-row justify-between px-8">
+              <Buttons variant="primary" className="font-extrabold text-white shadow-md shadow-slate-300 m-4">-</Buttons>
+              <Buttons variant="secundary" className="font-extrabold text-white shadow-md shadow-slate-300 m-4">+</Buttons>
+            </div>
+
+            <div className="m-5 gap-1 flex flex-col">
+              <Buttons variant="third" className="font-semibold text-white shadow-sm shadow-slate-950">
+                Start timer
+              </Buttons>
+              <Buttons variant="forth" className="text-blue-600 shadow shadow-slate-300 font-mono m-2">
+                Reset
+              </Buttons>
+            </div>
+          </Card>
+        </main>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App />)
   </script>
-
 </body>
 </html>
